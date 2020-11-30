@@ -1,0 +1,13 @@
+<nav>
+  <ul class="pagination">
+    <li class="page-item">
+      <button class="page-link" (click)="toPreviousPage()">Previous</button>
+    </li>
+    <li *ngFor="let page of totalPagesToList()" class="page-item" [ngClass]="{'active':page == (currentPage + 1)}">
+      <button class="page-link" (click)="toPage(page-1)">{{page}}</button>
+    </li>
+    <li class="page-item">
+      <button class="page-link" (click)="toNextPage()">Next</button>
+    </li>
+  </ul>
+</nav>

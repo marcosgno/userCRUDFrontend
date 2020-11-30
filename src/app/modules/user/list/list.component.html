@@ -1,0 +1,61 @@
+<section class="content-header">
+    <div class="container">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Usuários</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="content">
+    <div class="container">
+      <button [routerLink]="['user/new']" class="btn btn-primary mb-2">+ Adicionar</button>
+      <div class="card">
+        <div class="card-body table-responsive">
+          <table class="table table-bordered table-head-fixed">
+            <thead>
+              <tr>
+                <th>#ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th></th>
+                <th>Remover</th>
+              </tr>
+            </thead>
+  
+            <tbody>
+  
+              <tr *ngFor="let user of users; index as index">
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.cpf | cpfPipe}}</td>
+                <td>
+                  <a [routerLink]="['/user/' + user.id]" class="btn btn-link">
+                    <i class="fas fa-eye"></i>
+                    Editar
+                  </a>
+                </td>
+                <td>
+                  <a class="btn" (click)="removeUser(index)">
+                    <i class="fas fa-times"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+  
+          </table>
+        </div>
+        <div *ngIf="!loading" class="card-footer">
+          <app-pagination 
+            [currentPage]="currentPage" 
+            [totalPages]="totalPages"
+            [isLastPage]="isLastPage"
+            [isFirstPage]="isFirstPage"
+            (toPageEvent)="toPage($event)">
+          </app-pagination>
+        </div>
+      </div>
+  
+    </div>
+  </section>

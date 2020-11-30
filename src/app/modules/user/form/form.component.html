@@ -1,0 +1,63 @@
+<section class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-md-8">
+                <div class="card">
+                    <form [formGroup]="form" (submit)="save()">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <section class="mt-4">
+                                    <button [routerLink]="['']" class="btn btn-primary mb-2">Voltar</button>
+                                    <legend>Dados do Usuário</legend>
+
+                                    <div class="form-group">
+                                        <label for="name">Nome</label>
+                                        <input formControlName="name" id="name" type="text" class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && form.get('name').errors }">
+                                        <div *ngIf="submitted && form.get('name').errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="form.get('name').errors?.required">Nome é obrigatório
+                                            </div>
+                                            <div *ngIf="form.get('name').errors?.pattern">Somente texto é permitido neste campo.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cpf">CPF</label>
+                                        <input cpf-directive formControlName="cpf" id="cpf" type="text" maxlength="14"
+                                            class="form-control"
+                                            [ngClass]="{ 'is-invalid': (submitted && form.get('cpf').errors) || form.get('cpf').getError('cpfNotValid') }">
+                                        <div *ngIf="(submitted && form.get('cpf').errors) || form.get('cpf').getError('cpfNotValid')"
+                                            class="invalid-feedback">
+                                            <div *ngIf="submitted && form.get('cpf').errors?.required">Cpf é
+                                                obrigatório
+                                            </div>
+                                            <div *ngIf="form.get('cpf').getError('cpfNotValid')">Cpf inválido
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="birthDate">Data de nascimento</label>
+                                        <input formControlName="birthDate" id="birthDate" type="date" onkeydown="return false" min="1900-01-01" max="{{date | date:'yyyy-MM-dd'}}"
+                                            class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && form.get('birthDate').errors }">
+                                        <div *ngIf="submitted && form.get('birthDate').errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="form.get('birthDate').errors?.required">Data de
+                                                nascimento é obrigatória</div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="card-footer">
+                                <button [disabled]="loading" class="btn btn-primary">Enviar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
